@@ -1,0 +1,10 @@
+{
+  "package": {
+    "title": "laravel-boilerplate-for-all-future-projects",
+    "name": "laravel-boilerplate-for-all-future-projects",
+    "version", "1.0",
+    "homepage": "https://github.com/filipveschool/projects-boilerplate-laravel",
+    "description": "Sass Library does that thing"
+  },
+  "autofill": "false"
+}
