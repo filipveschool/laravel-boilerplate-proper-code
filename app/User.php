@@ -4,10 +4,19 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use Srmklive\Authy\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatable;
+use Srmklive\Authy\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatableContract;
+use Cmgmyr\Messenger\Traits\Messagable;
+use Cache;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements TwoFactorAuthenticatableContract
 {
-    use Notifiable;
+    use Notifiable, TwoFactorAuthenticatable;
+    use HasRoles;
+    use Messagable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'activated', 'name', 'email', 'password', 'profile_photo',
     ];
 
     /**
@@ -26,4 +35,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-'.$this->id);
+    }
 }

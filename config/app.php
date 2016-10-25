@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => env('APP_NAME','Laravel boilerplate 5.3'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('TIMEZONE','Europe/Brussels'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE','en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +90,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE','en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -200,9 +200,26 @@ return [
         //https://github.com/Snowfire/Beautymail
         Snowfire\Beautymail\BeautymailServiceProvider::class,
 
+        //https://github.com/spatie/laravel-permission
+        Spatie\Permission\PermissionServiceProvider::class,
 
+        //https://github.com/spatie/laravel-activitylog
+        Spatie\Activitylog\ActivitylogServiceProvider::class,
 
+        //https://github.com/cmgmyr/laravel-messenger
+        Cmgmyr\Messenger\MessengerServiceProvider::class,
 
+        //https://docs.spatie.be/laravel-backup/v4/installation-and-setup
+        Spatie\Backup\BackupServiceProvider::class,
+
+        //https://github.com/srmklive/laravel-twofactor-authentication
+        Srmklive\Authy\Providers\AuthyServiceProvider::class,
+
+        //https://laravelcollective.com/docs/5.3/html#installation
+        Collective\Html\HtmlServiceProvider::class,
+
+        //http://image.intervention.io/getting_started/installation#laravel
+        Intervention\Image\ImageServiceProvider::class
 
 
     ],
@@ -255,6 +272,12 @@ return [
 
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Authy' => Srmklive\Authy\Facades\Authy::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class
+
+
 
     ],
 
