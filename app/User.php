@@ -10,7 +10,6 @@ use Srmklive\Authy\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthenti
 use Cmgmyr\Messenger\Traits\Messagable;
 use Cache;
 
-
 class User extends Authenticatable implements TwoFactorAuthenticatableContract
 {
     use Notifiable, TwoFactorAuthenticatable;

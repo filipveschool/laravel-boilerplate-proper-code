@@ -8,7 +8,6 @@ use Session;
 
 class SetLocale
 {
-
     protected $languages = ['en', 'nl'];
 
     /**

@@ -19,10 +19,10 @@ class RoleMiddleware
         if (Auth::guest()) {
             return redirect($urlOfYourLoginPage);
         }
-        if (!$request->user()->hasRole($role)) {
+        if (! $request->user()->hasRole($role)) {
             abort(403);
         }
-        if (!$request->user()->can($permission)) {
+        if (! $request->user()->can($permission)) {
             abort(403);
         }
 

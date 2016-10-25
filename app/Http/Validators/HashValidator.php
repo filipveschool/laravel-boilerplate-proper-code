@@ -3,9 +3,8 @@
  * Created by PhpStorm.
  * User: filipve
  * Date: 25/10/2016
- * Time: 16:28
+ * Time: 16:28.
  */
-
 namespace App\Http\Validators;
 
 use Hash;

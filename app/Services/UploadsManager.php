@@ -3,11 +3,9 @@
  * Created by PhpStorm.
  * User: filipve
  * Date: 25/10/2016
- * Time: 16:22
+ * Time: 16:22.
  */
-
 namespace App\Services;
-
 
 use Carbon\Carbon;
 use Dflydev\ApacheMimeTypes\PhpRepository;
@@ -39,12 +37,13 @@ class UploadsManager
         foreach ($this->disk->files($folder) as $path) {
             $files[] = $this->fileDetails($path);
         }
+
         return compact('folder', 'folderName', 'breadcrumbs', 'subfolders', 'files');
     }
 
     protected function cleanFolder($folder)
     {
-        return '/' . trim(str_replace('..', '', $folder), '/');
+        return '/'.trim(str_replace('..', '', $folder), '/');
     }
 
     protected function breadcrumbs($folder)
@@ -57,15 +56,17 @@ class UploadsManager
         $folders = explode('/', $folder);
         $build = '';
         foreach ($folders as $folder) {
-            $build .= '/' . $folder;
+            $build .= '/'.$folder;
             $crumbs[$build] = $folder;
         }
+
         return $crumbs;
     }
 
     protected function fileDetails($path)
     {
-        $path = '/' . ltrim($path, '/');
+        $path = '/'.ltrim($path, '/');
+
         return [
             'name' => basename($path),
             'fullPath' => $path,
@@ -78,8 +79,9 @@ class UploadsManager
 
     public function fileWebpath($path)
     {
-        $path = rtrim(config('startup.uploads.webpath'), '/') . '/' .
+        $path = rtrim(config('startup.uploads.webpath'), '/').'/'.
             ltrim($path, '/');
+
         return url($path);
     }
 
@@ -108,6 +110,7 @@ class UploadsManager
         if ($this->disk->exists($folder)) {
             return "Folder '$folder' aleady exists.";
         }
+
         return $this->disk->makeDirectory($folder);
     }
 
@@ -118,18 +121,20 @@ class UploadsManager
             $this->disk->directories($folder),
             $this->disk->files($folder)
         );
-        if (!empty($filesFolders)) {
+        if (! empty($filesFolders)) {
             return 'Directory must be empty to delete it.';
         }
+
         return $this->disk->deleteDirectory($folder);
     }
 
     public function deleteFile($path)
     {
         $path = $this->cleanFolder($path);
-        if (!$this->disk->exists($path)) {
+        if (! $this->disk->exists($path)) {
             return 'File does not exist.';
         }
+
         return $this->disk->delete($path);
     }
 
@@ -139,6 +144,7 @@ class UploadsManager
         if ($this->disk->exists($path)) {
             return 'File already exists.';
         }
+
         return $this->disk->put($path, $content);
     }
 }

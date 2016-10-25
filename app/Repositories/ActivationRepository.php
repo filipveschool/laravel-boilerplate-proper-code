@@ -3,9 +3,8 @@
  * Created by PhpStorm.
  * User: filipve
  * Date: 25/10/2016
- * Time: 16:25
+ * Time: 16:25.
  */
-
 namespace App\Repositories;
 
 use Carbon\Carbon;
@@ -29,9 +28,10 @@ class ActivationRepository
     public function createActivation($user)
     {
         $activation = $this->getActivation($user);
-        if (!$activation) {
+        if (! $activation) {
             return $this->createToken($user);
         }
+
         return $this->regenerateToken($user);
     }
 
@@ -42,6 +42,7 @@ class ActivationRepository
             'token' => $token,
             'created_at' => new Carbon(),
         ]);
+
         return $token;
     }
 
@@ -53,6 +54,7 @@ class ActivationRepository
             'token' => $token,
             'created_at' => new Carbon(),
         ]);
+
         return $token;
     }
 
