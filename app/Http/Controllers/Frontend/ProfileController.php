@@ -21,6 +21,7 @@ class ProfileController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Show the application profile index page.
      */
@@ -28,6 +29,7 @@ class ProfileController extends Controller
     {
         return view('profile.index');
     }
+
     /**
      * Show the application profile change password page.
      */
@@ -35,8 +37,10 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $twofactor_enabled = authy()->isEnabled($user);
+
         return view('profile.security', compact('twofactor_enabled'));
     }
+
     /**
      * Update profiles.
      */
@@ -49,8 +53,10 @@ class ProfileController extends Controller
         ]);
         $values = $request->all();
         $this->user->fill($values)->save();
+
         return redirect()->back()->with('info', trans('startup.notifications.profile.contact_info'));
     }
+
     /**
      * Update password on profiles.
      */
@@ -66,8 +72,10 @@ class ProfileController extends Controller
         }
         $user->password = Hash::make($request->new_password);
         $user->save();
+
         return redirect()->back()->with('info', trans('startup.notifications.profile.password_update'));
     }
+
     /**
      * Update profile photo on profiles.
      */
@@ -83,6 +91,7 @@ class ProfileController extends Controller
         Image::make($image->getRealPath())->fit(600, 600)->save($path);
         $this->user->profile_photo = $filename;
         $this->user->save();
+
         return redirect()->back()->with('info', trans('startup.notifications.profile.profile_photo'));
     }
 }

@@ -23,6 +23,7 @@ class BackupController extends Controller
     {
         $folder = $request->get('folder');
         $data = $this->manager->folderInfo($folder);
+
         return view('admin.settings.backup', $data);
     }
 
@@ -30,21 +31,24 @@ class BackupController extends Controller
     {
         Artisan::call('backup:run', []);
         activity()->log('New backup has been created');
+
         return redirect('admin/settings/backup')->with('info', trans('startup.notifications.admin_backup.created'));
     }
 
     public function deleteFile(Request $request)
     {
         $del_file = $request->get('del_file');
-        $path = $request->get('folder') . '/' . $del_file;
+        $path = $request->get('folder').'/'.$del_file;
         $result = $this->manager->deleteFile($path);
         if ($result === true) {
             activity()->log("File <b>{$del_file}</b> deleted");
+
             return redirect()
                 ->back()
                 ->withSuccess("File '$del_file' deleted.");
         }
         $error = $result ?: 'An error occurred deleting file.';
+
         return redirect()
             ->back()
             ->withErrors([$error]);
@@ -53,15 +57,17 @@ class BackupController extends Controller
     public function deleteFolder(Request $request)
     {
         $del_folder = $request->get('del_folder');
-        $folder = $request->get('folder') . '/' . $del_folder;
+        $folder = $request->get('folder').'/'.$del_folder;
         $result = $this->manager->deleteDirectory($folder);
         if ($result === true) {
             activity()->log("Folder <b>{$del_folder}</b> deleted");
+
             return redirect()
                 ->back()
                 ->withSuccess("Folder '$del_folder' deleted.");
         }
         $error = $result ?: 'An error occurred deleting directory.';
+
         return redirect()
             ->back()
             ->withErrors([$error]);

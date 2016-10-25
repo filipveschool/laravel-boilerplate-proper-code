@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 
-
 class MessagesController extends Controller
 {
     public function __construct()
@@ -31,6 +30,7 @@ class MessagesController extends Controller
         $users = User::where('id', '!=', Auth::id())->get();
         $currentUserId = Auth::user()->id;
         $threads = Thread::forUser($currentUserId)->latest('updated_at')->get();
+
         return view('messenger.index', compact('threads', 'currentUserId', 'users'));
     }
 
@@ -47,12 +47,13 @@ class MessagesController extends Controller
         } catch (ModelNotFoundException $e) {
             return redirect('profile/messages')->with('error', trans('startup.notifications.profile.message_error', ['id' => $id]));
         }
-        if (!$thread->hasParticipant(\Auth::id())) {
+        if (! $thread->hasParticipant(\Auth::id())) {
             return redirect('profile/messages')->with('error', trans('startup.notifications.profile.message_error2'));
         }
         $userId = Auth::user()->id;
         $users = User::whereNotIn('id', $thread->participantsUserIds($userId))->get();
         $thread->markAsRead($userId);
+
         return view('messenger.show', compact('thread', 'users'));
     }
 
@@ -64,6 +65,7 @@ class MessagesController extends Controller
     public function create()
     {
         $users = User::where('id', '!=', Auth::id())->get();
+
         return view('messenger.create', compact('users'));
     }
 
@@ -77,7 +79,7 @@ class MessagesController extends Controller
         $this->validate($request, [
             'subject' => 'required',
             'message' => 'required',
-            'recipients' => 'required',]);
+            'recipients' => 'required', ]);
         $thread = Thread::create(
             [
                 'subject' => $request->subject,
@@ -100,6 +102,7 @@ class MessagesController extends Controller
         if (Input::has('recipients')) {
             $thread->addParticipant($request->recipients);
         }
+
         return redirect('profile/messages')->with('info', trans('startup.notifications.profile.new_message'));
     }
 
@@ -118,7 +121,7 @@ class MessagesController extends Controller
         }
         $thread->activateAllParticipants();
         $this->validate($request, [
-            'message' => 'required',]);
+            'message' => 'required', ]);
         Message::create(
             [
                 'thread_id' => $thread->id,
@@ -134,13 +137,15 @@ class MessagesController extends Controller
         );
         $participant->last_read = new Carbon;
         $participant->save();
-        return redirect('profile/messages/' . $id)->with('info', trans('startup.notifications.profile.post_message'));
+
+        return redirect('profile/messages/'.$id)->with('info', trans('startup.notifications.profile.post_message'));
     }
 
     public function destroy($id)
     {
         $thread = Thread::find($id);
         $thread->delete();
+
         return redirect('profile/messages')->with('success', trans('startup.notifications.profile.delete_message'));
     }
 }
