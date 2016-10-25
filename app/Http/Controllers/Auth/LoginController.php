@@ -33,7 +33,6 @@ class LoginController extends Controller
 
     protected $redirectAfterLogout = '/login';
 
-
     /**
      * Create a new controller instance.
      *
@@ -43,7 +42,6 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
         $this->activationService = $activationService;
-
     }
 
     public function logout(Request $request)
@@ -51,14 +49,16 @@ class LoginController extends Controller
         $this->guard()->logout();
         $request->session()->flush();
         $request->session()->regenerate();
+
         return redirect($this->redirectAfterLogout)->with('warning', trans('startup.notifications.login.logout'));
     }
 
     public function authenticated(Request $request, Authenticatable $user)
     {
-        if (!$user->activated) {
+        if (! $user->activated) {
             $this->activationService->sendActivationMail($user);
             auth()->logout();
+
             return back()->with('warning', trans('startup.notifications.register.confirm_account'));
         }
         if (authy()->isEnabled($user)) {
@@ -66,6 +66,7 @@ class LoginController extends Controller
         }
         activity()->log("User <b>{$user->name}</b> have logged in");
         session()->flash('info', trans('startup.notifications.login.welcome', ['user' => $user->name]));
+
         return redirect()->intended($this->redirectPath());
     }
 
@@ -74,6 +75,7 @@ class LoginController extends Controller
         if ($user = $this->activationService->activateUser($token)) {
             auth()->login($user);
             activity()->log("User <b>{$user->name}</b> have logged in");
+
             return redirect($this->redirectPath())->with('info', trans('startup.notifications.login.welcome', ['user' => $user->name]));
         }
         abort(404);
@@ -83,7 +85,7 @@ class LoginController extends Controller
     {
         $this->guard()->logout();
         $request->session()->put('authy:auth:id', $user->id);
+
         return redirect(url('auth/token'));
     }
-
 }

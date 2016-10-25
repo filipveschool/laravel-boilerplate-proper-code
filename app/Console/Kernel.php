@@ -4,7 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Spatie\LinkChecker\CheckLinksCommand;
 use App\Console\Commands\PrefetchAnalyticsData;
 
 class Kernel extends ConsoleKernel
@@ -36,7 +35,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('link-checker:run')->monthly();
         $schedule->command('clean:models')->daily();
         $schedule->command('activity:clean')->daily();
-
     }
 
     /**

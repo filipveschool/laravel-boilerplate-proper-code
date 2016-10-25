@@ -80,6 +80,7 @@ class RegisterController extends Controller
         $user = User::find($create->id);
         $user->assignRole('User');
         activity()->log("New user <b>{$user->name}</b> registered");
+
         return $create;
     }
 
@@ -99,5 +100,4 @@ class RegisterController extends Controller
 
         return redirect('/login')->with('info', trans('startup.notifications.register.activation_code'));
     }
-
 }
