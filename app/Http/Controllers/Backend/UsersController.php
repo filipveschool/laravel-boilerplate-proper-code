@@ -29,6 +29,7 @@ class UsersController extends Controller
     {
         $users = User::paginate(10);
         $roles = Role::all()->pluck('name', 'name');
+
         return view('admin.users.index', compact('users', 'roles'));
     }
 
@@ -40,6 +41,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $roles = Role::all()->pluck('name', 'name');
         $rolesUser = $user->roles()->pluck('name', 'name')->toArray();
+
         return view('admin.users.edit', compact('user', 'roles', 'rolesUser'));
     }
 
@@ -57,10 +59,11 @@ class UsersController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        foreach ((array)$request->input('roles') as $role) {
+        foreach ((array) $request->input('roles') as $role) {
             $user->assignRole($role);
         }
         activity()->log("User <b>{$user->name}</b> has been created");
+
         return redirect('admin/users')->with('success', trans('startup.notifications.admin_users.created'));
     }
 
@@ -71,12 +74,12 @@ class UsersController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:password_confirm',
             'roles' => 'required',
         ]);
         $input = $request->all();
-        if (!empty($input['password'])) {
+        if (! empty($input['password'])) {
             $input['password'] = Hash::make($input['password']);
         } else {
             $input = array_except($input, ['password']);
@@ -84,10 +87,11 @@ class UsersController extends Controller
         $user = User::find($id);
         activity()->log("User <b>{$user->name}</b> has been updated");
         DB::table('user_has_roles')->where('user_id', $id)->delete();
-        foreach ((array)$request->input('roles') as $role) {
+        foreach ((array) $request->input('roles') as $role) {
             $user->assignRole($role);
         }
         $user->update($input);
+
         return redirect('admin/users')->with('info', trans('startup.notifications.admin_users.updated'));
     }
 
@@ -99,6 +103,7 @@ class UsersController extends Controller
         $user = User::find($id);
         User::find($id)->delete();
         activity()->log("User <b>{$user->name}</b> has been deleted");
+
         return redirect('admin/users')->with('info', trans('startup.notifications.admin_users.deleted'));
     }
 }

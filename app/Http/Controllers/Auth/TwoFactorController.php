@@ -31,21 +31,23 @@ class TwoFactorController extends Controller
     public function validateTokenForm(Request $request)
     {
         $this->validate($request, ['token' => 'required']);
-        if (!session('authy:auth:id')) {
+        if (! session('authy:auth:id')) {
             return redirect(url('login'));
         }
         $guard = config('auth.defaults.guard');
-        $provider = config('auth.guards.' . $guard . '.provider');
-        $model = config('auth.providers.' . $provider . '.model');
+        $provider = config('auth.guards.'.$guard.'.provider');
+        $model = config('auth.providers.'.$provider.'.model');
         $user = (new $model())->findOrFail(
             $request->session()->pull('authy:auth:id')
         );
         if (authy()->tokenIsValid($user, $request->token)) {
             auth($guard)->login($user);
             session()->flash('info', trans('startup.notifications.login.welcome', ['user' => $user->name]));
+
             return redirect()->intended('/');
         } else {
             session()->flash('danger', trans('startup.notifications.profile.authy_token'));
+
             return redirect(url('login'));
         }
     }
@@ -92,13 +94,14 @@ class TwoFactorController extends Controller
             $input['country-code'], $input['authy-cellphone']
         );
         try {
-            authy()->register($user, !empty($input['sms']) ? true : false);
+            authy()->register($user, ! empty($input['sms']) ? true : false);
             $user->save();
         } catch (Exception $e) {
             app(ExceptionHandler::class)->report($e);
             session()->with('danger', trans('startup.notifications.profile.authy_invalid'));
         }
         session()->flash('success', trans('startup.notifications.profile.authy_enabled'));
+
         return redirect(url('/profile/security'));
     }
 
@@ -120,6 +123,7 @@ class TwoFactorController extends Controller
             session()->with('danger', trans('startup.notifications.profile.authy_delete'));
         }
         session()->flash('success', trans('startup.notifications.profile.authy_disabled'));
+
         return redirect(url('/profile/security'));
     }
 }

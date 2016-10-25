@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Mail;
 
@@ -26,7 +24,7 @@ class ContactController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'subject' => 'required|min:3',
-            'message' => 'required|min:10',]);
+            'message' => 'required|min:10', ]);
         $data = [
             'name' => $request->name,
             'email' => $request->email,
@@ -38,6 +36,7 @@ class ContactController extends Controller
             $message->to(env('MAIL_FROM'));
             $message->subject($data['subject']);
         });
+
         return redirect('/contact')->with('success', trans('startup.notifications.contactform.created'));
     }
 }

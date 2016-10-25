@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
@@ -16,6 +15,7 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Show the application admin dashboard.
      *

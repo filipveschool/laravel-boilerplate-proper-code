@@ -27,12 +27,14 @@ class PermissionsController extends Controller
     public function index()
     {
         $permissions = Permission::paginate(10);
+
         return view('admin.permissions.index', compact('permissions'));
     }
 
     public function edit($id)
     {
         $permission = Permission::find($id);
+
         return view('admin.permissions.edit', compact('permission'));
     }
 
@@ -45,6 +47,7 @@ class PermissionsController extends Controller
         $permission->name = $request->input('name');
         activity()->log("Permission <b>{$permission->name}</b> has been created");
         $permission->save();
+
         return redirect('admin/permissions')->with('info', trans('startup.notifications.admin_permissions.created'));
     }
 
@@ -57,6 +60,7 @@ class PermissionsController extends Controller
         $permission->name = $request->input('name');
         activity()->log("Permission <b>{$permission->name}</b> has been updated");
         $permission->save();
+
         return redirect('admin/permissions')->with('info', trans('startup.notifications.admin_permissions.updated'));
     }
 
@@ -65,6 +69,7 @@ class PermissionsController extends Controller
         $permission = Permission::find($id);
         Permission::find($id)->delete();
         activity()->log("Permission <b>{$permission->name}</b> has been deleted");
+
         return redirect('admin/permissions')->with('info', trans('startup.notifications.admin_permissions.deleted'));
     }
 }

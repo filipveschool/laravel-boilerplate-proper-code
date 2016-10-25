@@ -30,6 +30,7 @@ class RolesController extends Controller
     {
         $permission = Permission::get();
         $roles = Role::paginate(10);
+
         return view('admin.roles.index', compact('roles', 'permission'));
     }
 
@@ -39,6 +40,7 @@ class RolesController extends Controller
         $permission = Permission::get();
         $rolePermissions = DB::table('role_has_permissions')->where('role_has_permissions.role_id', $id)
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')->toArray();
+
         return view('admin.roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
 
@@ -57,6 +59,7 @@ class RolesController extends Controller
         foreach ($request->input('permission') as $key => $value) {
             $role->givePermissionTo($value);
         }
+
         return redirect('admin/roles')->with('info', trans('startup.notifications.admin_roles.updated'));
     }
 
@@ -73,6 +76,7 @@ class RolesController extends Controller
         foreach ($request->input('permission') as $key => $value) {
             $role->givePermissionTo($value);
         }
+
         return redirect('admin/roles')->with('info', trans('startup.notifications.admin_roles.created'));
     }
 
@@ -81,6 +85,7 @@ class RolesController extends Controller
         $role = Role::find($id);
         activity()->log("Role <b>{$role->name}</b> has been deleted");
         DB::table('roles')->where('id', $id)->delete();
+
         return redirect('admin/roles')->with('info', trans('startup.notifications.admin_roles.deleted'));
     }
 }

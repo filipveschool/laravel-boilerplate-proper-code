@@ -17,6 +17,7 @@ class SettingsController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Show the application admin dashboard.
      *
@@ -25,8 +26,10 @@ class SettingsController extends Controller
     public function index()
     {
         $config = new \Larapack\ConfigWriter\Repository('app');
+
         return view('admin.settings.index', compact('config'));
     }
+
     public function updateSettings(Request $request)
     {
         $this->validate($request, [
@@ -41,11 +44,14 @@ class SettingsController extends Controller
         $config->set('timezone', $request->input('timezone'));
         $config->save();
         activity()->log('<b>Global</b> settings has been updated');
+
         return redirect('admin/settings')->with('success', trans('startup.notifications.admin_settings.updated'));
     }
+
     public function activity()
     {
         $activitys = Activity::orderBy('updated_at', 'desc')->paginate(11);
+
         return view('admin.settings.activity', compact('activitys'));
     }
 }

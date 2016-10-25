@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use Spatie\Analytics\Period;
 use Analytics;
 
-
 class PrefetchAnalyticsData extends Command
 {
     /**
