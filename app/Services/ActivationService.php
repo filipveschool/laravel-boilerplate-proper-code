@@ -3,9 +3,8 @@
  * Created by PhpStorm.
  * User: filipve
  * Date: 25/10/2016
- * Time: 16:24
+ * Time: 16:24.
  */
-
 namespace App\Services;
 
 use App\Repositories\ActivationRepository;
@@ -24,7 +23,7 @@ class ActivationService
 
     public function sendActivationMail($user)
     {
-        if ($user->activated || !$this->shouldSend($user)) {
+        if ($user->activated || ! $this->shouldSend($user)) {
             return;
         }
         $token = $this->activationRepo->createActivation($user);
@@ -44,12 +43,14 @@ class ActivationService
         $user->activated = true;
         $user->save();
         $this->activationRepo->deleteActivation($token);
+
         return $user;
     }
 
     private function shouldSend($user)
     {
         $activation = $this->activationRepo->getActivation($user);
+
         return $activation === null || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();
     }
 }

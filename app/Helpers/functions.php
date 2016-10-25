@@ -3,12 +3,11 @@
  * Created by PhpStorm.
  * User: filipve
  * Date: 25/10/2016
- * Time: 16:18
+ * Time: 16:18.
  */
-
 function set_active($path, $active = 'active')
 {
-    return call_user_func_array('Request::is', (array)$path) ? $active : '';
+    return call_user_func_array('Request::is', (array) $path) ? $active : '';
 }
 
 /**
@@ -20,7 +19,8 @@ function human_filesize($bytes, $decimals = 2)
 {
     $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
     $factor = floor((strlen($bytes) - 1) / 3);
-    return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) .
+
+    return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)).
     @$size[$factor];
 }
 
