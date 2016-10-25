@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/setlang/{lang}', function ($lang) {
     Session::put('locale', $lang);
+
     return redirect()->back();
 });
 
@@ -65,17 +66,17 @@ Route::group(['namespace' => 'Backend'], function () {
             Route::get('settings', 'SettingsController@index');
             Route::put('settings/updateSettings', [
                 'uses' => 'SettingsController@updateSettings',
-                'as' => 'settings.updateSettings',]);
+                'as' => 'settings.updateSettings', ]);
             Route::get('settings/activity', 'SettingsController@activity');
             Route::get('settings/backup', 'BackupController@index');
             Route::post('settings/backup/store', [
-                'as' => 'storebackup', 'uses' => 'BackupController@store',]);
+                'as' => 'storebackup', 'uses' => 'BackupController@store', ]);
             Route::delete('settings/backup/file', 'BackupController@deleteFile');
             Route::delete('settings/backup/folder', 'BackupController@deleteFolder');
             Route::delete('settings/backup/destroy/{id}', [
-                'as' => 'destroybackup', 'uses' => 'BackupController@destroy',]);
+                'as' => 'destroybackup', 'uses' => 'BackupController@destroy', ]);
             Route::get('settings/backup/get/{name}', [
-                'as' => 'getdbbackup', 'uses' => 'BackupController@get',]);
+                'as' => 'getdbbackup', 'uses' => 'BackupController@get', ]);
         });
         Route::group(['middleware' => ['can:manage-uploads']], function () {
             Route::get('upload', 'UploadController@index');
@@ -91,5 +92,5 @@ Route::group(['namespace' => 'Backend'], function () {
 Route::get('/home', 'HomeController@index');
 
 $s = 'social.';
-Route::get('/social/redirect/{provider}', ['as' => $s . 'redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);
-Route::get('/social/handle/{provider}', ['as' => $s . 'handle', 'uses' => 'Auth\AuthController@getSocialHandle']);
+Route::get('/social/redirect/{provider}', ['as' => $s.'redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);
+Route::get('/social/handle/{provider}', ['as' => $s.'handle', 'uses' => 'Auth\AuthController@getSocialHandle']);

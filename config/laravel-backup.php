@@ -70,9 +70,9 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\Backup\Notifications\Notifications\BackupHasFailed::class => ['mail','log'],
-            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound::class => ['mail','log'],
-            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class => ['mail','log'],
+            \Spatie\Backup\Notifications\Notifications\BackupHasFailed::class => ['mail', 'log'],
+            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound::class => ['mail', 'log'],
+            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class => ['mail', 'log'],
             \Spatie\Backup\Notifications\Notifications\BackupWasSuccessful::class => ['log'],
             \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound::class => ['log'],
             \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful::class => ['log'],

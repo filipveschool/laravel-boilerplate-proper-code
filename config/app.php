@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME','Laravel boilerplate 5.3'),
+    'name' => env('APP_NAME', 'Laravel boilerplate 5.3'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => env('TIMEZONE','Europe/Brussels'),
+    'timezone' => env('TIMEZONE', 'Europe/Brussels'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE','en'),
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +90,7 @@ return [
     |
     */
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE','en'),
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -219,7 +219,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
 
         //http://image.intervention.io/getting_started/installation#laravel
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
 
 
     ],
@@ -275,7 +275,7 @@ return [
         'Authy' => Srmklive\Authy\Facades\Authy::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
 
 
 
