@@ -43,11 +43,11 @@ class SocialController extends Controller
 
         $email = $user->email;
 
-        if (!$user->email) {
+        if (! $user->email) {
             $email = 'missing'.str_random(10);
         }
 
-        if (!empty($userCheck)) {
+        if (! empty($userCheck)) {
             $socialUser = $userCheck;
         } else {
             $sameSocialId = Social::where('social_id', '=', $user->id)
