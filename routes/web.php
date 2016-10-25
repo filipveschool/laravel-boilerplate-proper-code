@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/setlang/{lang}', function ($lang) {
@@ -89,8 +85,11 @@ Route::group(['namespace' => 'Backend'], function () {
 });
 
 
-Route::get('/home', 'HomeController@index');
 
 $s = 'social.';
 Route::get('/social/redirect/{provider}', ['as' => $s.'redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);
 Route::get('/social/handle/{provider}', ['as' => $s.'handle', 'uses' => 'Auth\AuthController@getSocialHandle']);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

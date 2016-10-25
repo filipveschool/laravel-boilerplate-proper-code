@@ -10,242 +10,155 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
-
-    <style>
-        .form-signin {
-            max-width: 330px;
-            padding: 15px;
-            margin: 0 auto;
-        }
-        .form-signin .form-signin-heading,
-        .form-signin .checkbox {
-            margin-bottom: 10px;
-        }
-        .form-signin .checkbox {
-            font-weight: normal;
-        }
-        .form-signin .form-control {
-            position: relative;
-            height: auto;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 10px;
-            font-size: 16px;
-        }
-        .form-signin .form-control:focus {
-            z-index: 2;
-        }
-        .form-signin input[type="email"] {
-            margin-bottom: -1px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-        .form-signin input[type="password"] {
-            margin-bottom: -1px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
-
-        .login-btn{
-            margin-top:10px;
-        }
-        .or-social{
-            text-align:center;
-            margin: 10px 0 10px 0;
-        }
-        .facebook{
-            background-color: #4863ae;
-            border-color: #4863ae;
-        }
-        .facebook:hover{
-            background-color: #2871aa;
-            border-color: #2871aa;
-        }
-        .twitter{
-            background-color: #46c0fb;
-            border-color: #46c0fb;
-        }
-        .twitter:hover{
-            background-color: #00c7fb;
-            border-color: #00c7fb;
-        }
-        .google{
-            background-color: #DD4B39;
-            border-color: #DD4B39;
-        }
-        .google:hover{
-            background-color: #e15f4f;
-            border-color:#e15f4f;
-        }
-        .github{
-            background-color: #4183C4;
-            border-color: #4183C4;
-        }
-        .github:hover{
-            background-color: #5490ca;
-            border-color:#5490ca;
-        }
-        .margin-bottom-10{
-            margin-bottom:10px;
-        }
-        [type=checkbox]:checked, [type=checkbox]:not(:checked) {
-            position: absolute;
-            left: -9999px;
-            visibility: hidden;
-        }
-        [type=checkbox], [type=radio] {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 0;
-        }
-        [type=checkbox]+label {
-            position: relative;
-            height: 25px;
-        }
-        [type=checkbox]+label:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 18px;
-            height: 18px;
-            z-index: 0;
-            border: 2px solid #5a5a5a;
-            border-radius: 1px;
-            margin-top: 2px;
-            -webkit-transition: .2s;
-            -moz-transition: .2s;
-            -o-transition: .2s;
-            -ms-transition: .2s;
-            transition: .2s;
-        }
-        [type=radio]:checked+label, [type=radio]:not(:checked)+label, [type=checkbox]+label {
-            -khtml-user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            cursor: pointer;
-            font-size: 1rem;
-            padding-left: 35px;
-            display: inline-block;
-            line-height: 25px;
-        }
-        [type=checkbox]:checked+label:before {
-            top: -4px;
-            left: -3px;
-            width: 12px;
-            height: 22px;
-            border-top: 2px solid transparent;
-            border-left: 2px solid transparent;
-            border-right: 2px solid #4285F4;
-            border-bottom: 2px solid #4285F4;
-            -webkit-transform: rotate(40deg);
-            -moz-transform: rotate(40deg);
-            -ms-transform: rotate(40deg);
-            -o-transform: rotate(40deg);
-            transform: rotate(40deg);
-            -webkit-backface-visibility: hidden;
-            -webkit-transform-origin: 100% 100%;
-            -moz-transform-origin: 100% 100%;
-            -ms-transform-origin: 100% 100%;
-            -o-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
-        }
-        [type=checkbox]+label:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 18px;
-            height: 18px;
-            z-index: 0;
-            border: 2px solid #5a5a5a;
-            border-radius: 1px;
-            margin-top: 2px;
-            -webkit-transition: .2s;
-            -moz-transition: .2s;
-            -o-transition: .2s;
-            -ms-transition: .2s;
-            transition: .2s;
-        }
-        .error-text{
-            color: #F44336;
-            transition: .2s opacity ease-out,.2s color ease-out;
-        }
-    </style>
+    <!-- Styles Authy-->
+    <link rel="stylesheet" href="/frontend/css/flags.authy.css">
+    <link rel="stylesheet" href="/frontend/css/form.authy.css">
+    <!-- Styles App-->
+    <link rel="stylesheet" href="/frontend/css/app.css">
+    <!-- Styles StartUp-->
+    <link rel="stylesheet" href="/frontend/css/startup.css">
+    <!-- Style Font Awesome -->
+    <link rel="stylesheet" href="/frontend/css/font-awesome.min.css">
+    <!-- Bootstrap Select -->
+    <link rel="stylesheet" href="/frontend/css/bootstrap-select.min.css">
+    <!-- SimpleMDE -->
+    <link rel="stylesheet" href="/frontend/css/simplemde.min.css">
 
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
+                'csrfToken' => csrf_token(),
         ]); ?>
     </script>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+<div id="app">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
             </div>
-        </nav>
 
-        @yield('content')
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    &nbsp;
+                    <li class="{{ set_active(['/', '/']) }}"><a
+                                href="{{ url('/') }}">{{ trans('startup.nav.front.home') }}</a></li>
+                    <li class="{{ set_active(['contact', 'contact']) }}"><a
+                                href="{{ url('/contact') }}">{{ trans('startup.nav.front.contact') }}</a></li>
+
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ trans('startup.nav.front.language') }} <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{{ url('/setlang/en') }}">
+                                    @if ( session()->get('locale') === 'en') <i class="fa fa-check"
+                                                                                aria-hidden="true"></i> @endif  {{ trans('startup.english') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/setlang/no') }}">
+                                    @if ( session()->get('locale') === 'no') <i class="fa fa-check"
+                                                                                aria-hidden="true"></i> @endif {{ trans('startup.norwegian') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li class="{{ set_active(['login', 'login']) }}"><a
+                                    href="{{ url('/login') }}">{{ trans('startup.nav.front.login') }}</a></li>
+                        <li class="{{ set_active(['register', 'register']) }}"><a
+                                    href="{{ url('/register') }}">{{ trans('startup.nav.front.register') }}</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
+                                <img src="/uploads/avatars/{{ Auth::user()->profile_photo }}" width="30" height="30"
+                                     class="img-circle">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+
+                                @can('access-profile')
+                                    <li>
+                                        <a href="{{ url('/profile') }}">{{ trans('startup.nav.front.profile') }}</a>
+                                    </li>
+                                @endcan
+
+                                @can('access-backend')
+                                    <li>
+                                        <a href="{{ url('/admin') }}">{{ trans('startup.nav.front.admin') }}</a>
+                                    </li>
+                                @endcan
+
+                                <li>
+                                    <a href="{{ url('/logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ trans('startup.nav.front.logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST"
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    @yield('content')
+
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <p class="navbar-text pull-left">{{ config('app.name', 'StartUp 5.3') }} -
+                {{ trans('startup.built_with') }} <i class="fa fa-coffee"
+                                                     aria-hidden="true"></i> {{ trans('startup.and') }} <i
+                        class="fa fa-heart" aria-hidden="true"></i>
+            </p>
+
+            <a href="{{ config('app.url', 'http://localhost') }}" class="navbar-text pull-right">
+                {{ trans('startup.version') }} 1.3</a>
+        </div>
+
     </div>
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <script src="/frontend/js/app.js"></script>
+    <script src="/frontend/js/startup.js"></script>
+    <script src="/frontend/js/form.authy.js"></script>
+    <script src="/frontend/js/bootstrap-select.min.js"></script>
+    <script src="/frontend/js/simplemde.min.js"></script>
+
+@stack('scripts')
 </body>
 </html>

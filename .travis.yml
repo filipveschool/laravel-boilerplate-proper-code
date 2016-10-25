@@ -1,0 +1,17 @@
+language: php
+
+php:
+  - 7.0
+  - 7.1
+
+before_script:
+  - travis_retry composer self-update
+  - composer install
+  - nvm install 6
+  - npm install -g yarn
+  - yarn config set "https://npm.spatie.be"
+  - yarn
+  - gulp
+
+script:
+ - phpunit

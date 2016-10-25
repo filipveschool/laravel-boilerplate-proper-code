@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Spatie\LinkChecker\CheckLinksCommand;
+use App\Console\Commands\PrefetchAnalyticsData;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        PrefetchAnalyticsData::class,
+
     ];
 
     /**
@@ -27,6 +30,13 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('backup:run')->dailyAt('03:00');
+        $schedule->command('backup:clean')->dailyAt('04:00');
+        $schedule->command('analytics:prefetch')->dailyAt('06:00');
+        $schedule->command('link-checker:run')->monthly();
+        $schedule->command('clean:models')->daily();
+        $schedule->command('activity:clean')->daily();
+
     }
 
     /**
