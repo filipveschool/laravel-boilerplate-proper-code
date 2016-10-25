@@ -13,6 +13,7 @@ bootstrap/cache/
 .env.php
 .env
 _ide_helper.php
+.phpstorm.meta.php
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
