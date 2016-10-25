@@ -2,50 +2,39 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Input;
 use App\Social;
 use App\User;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Input;
+use Laravel\Socialite\Facades\Socialite;
 
 //https://tuts.codingo.me/laravel-social-and-email-authentication/utm_source=learninglaravel.net
 
 
 class SocialController extends Controller
 {
-    public function getSocialRedirect( $provider )
-{
+    public function getSocialRedirect($provider)
+    {
+        $providerKey = Config::get('services.'.$provider);
 
-    $providerKey = Config::get('services.' . $provider);
+        if (empty($providerKey)) {
+            return view('pages.status')
+            ->with('error', 'No such provider');
+        }
 
-    if (empty($providerKey)) {
-
-        return view('pages.status')
-            ->with('error','No such provider');
-
+        return Socialite::driver($provider)->redirect();
     }
 
-    return Socialite::driver( $provider )->redirect();
-
-}
-
-    public function getSocialHandle( $provider )
+    public function getSocialHandle($provider)
     {
-
         if (Input::get('denied') != '') {
-
             return redirect()->to('/login')
                 ->with('status', 'danger')
                 ->with('message', 'You did not share your profile data with our social app.');
-
         }
 
-        $user = Socialite::driver( $provider )->user();
+        $user = Socialite::driver($provider)->user();
 
         $socialUser = null;
 
@@ -55,25 +44,21 @@ class SocialController extends Controller
         $email = $user->email;
 
         if (!$user->email) {
-            $email = 'missing' . str_random(10);
+            $email = 'missing'.str_random(10);
         }
 
         if (!empty($userCheck)) {
-
             $socialUser = $userCheck;
-
-        }
-        else {
-
+        } else {
             $sameSocialId = Social::where('social_id', '=', $user->id)
-                ->where('provider', '=', $provider )
+                ->where('provider', '=', $provider)
                 ->first();
 
             if (empty($sameSocialId)) {
 
                 //There is no combination of this social id and provider, so create new one
-                $newSocialUser = new User;
-                $newSocialUser->email              = $email;
+                $newSocialUser = new User();
+                $newSocialUser->email = $email;
                 $name = explode(' ', $user->name);
 
                 if (count($name) >= 1) {
@@ -88,9 +73,9 @@ class SocialController extends Controller
                 $newSocialUser->token = str_random(64);
                 $newSocialUser->save();
 
-                $socialData = new Social;
+                $socialData = new Social();
                 $socialData->social_id = $user->id;
-                $socialData->provider= $provider;
+                $socialData->provider = $provider;
                 $newSocialUser->social()->save($socialData);
 
                 // Add role
@@ -98,32 +83,23 @@ class SocialController extends Controller
                 $newSocialUser->assignRole($role);
 
                 $socialUser = $newSocialUser;
-
-            }
-            else {
+            } else {
 
                 //Load this existing social user
                 $socialUser = $sameSocialId->user;
-
             }
-
         }
 
         auth()->login($socialUser, true);
 
-        if ( auth()->user()->hasRole('user')) {
-
+        if (auth()->user()->hasRole('user')) {
             return redirect()->route('user.home');
-
         }
 
-        if ( auth()->user()->hasRole('administrator')) {
-
+        if (auth()->user()->hasRole('administrator')) {
             return redirect()->route('admin.home');
-
         }
 
         return abort(500, 'User has no Role assigned, role is obligatory! You did not seed the database with the roles.');
-
     }
 }
