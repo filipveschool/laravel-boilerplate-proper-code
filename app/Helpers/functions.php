@@ -65,5 +65,6 @@ function roman_year(int $year = null): string
         // Substract from the number
         $year = $year % $yearNumber;
     }
+
     return $result;
 }
