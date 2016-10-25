@@ -3,3 +3,5 @@ preset: laravel
 finder:
   exclude:
     - "_ide_helper"
+  name:
+    - "*.php"
